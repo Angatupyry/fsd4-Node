@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-const axios = require("axios");
 
 const getSwapi = async () => {
   try {
@@ -9,7 +8,7 @@ const getSwapi = async () => {
       planeta: {},
     };
 
-    const character = await axios("https://swapi.dev/api/people/1");
+    const getSwapiPeople = await fetch("https://swapi.dev/api/people/1");
 
     const character = await getSwapiPeople.json();
 
@@ -30,7 +29,6 @@ const getSwapi = async () => {
 
     result.push(data);
 
-    console.log(result);
     return result;
   } catch (error) {}
 };
