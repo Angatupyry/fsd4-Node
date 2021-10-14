@@ -1,38 +1,38 @@
 const fetch = require("node-fetch");
+const axios = require("axios");
 
-async function main() {
+const getSwapi = async () => {
   try {
     const result = [];
     const data = {
       personaje: {},
       planeta: {},
     };
-    const fetchResponse = await fetch("https://swapi.dev/api/people/1");
 
-    const apiPersonaje = await fetchResponse.json();
-    const personajePlaneta = await fetch(apiPersonaje.homeworld);
+    const character = await axios("https://swapi.dev/api/people/1");
 
-    const personajePlanetaJson = await personajePlaneta.json();
+    const character = await getSwapiPeople.json();
+
+    const planet = await fetch(character.homeworld);
+    const planetJson = await planet.json();
 
     data.personaje = {
-      nombre: apiPersonaje.name,
-      peso: apiPersonaje.height,
-      color_pelo: apiPersonaje.hair_color,
-      color_ojo: apiPersonaje.eye_color,
+      nombre: character.name,
+      altura: character.height,
+      color_ojo: character.eye_color,
     };
 
     data.planeta = {
-      nombre: personajePlanetaJson.name,
-      gravedad: personajePlanetaJson.gravity,
-      terreno: personajePlanetaJson.terrain,
+      nombre: planetJson.name,
+      gravedad: planetJson.gravity,
+      terreno: planetJson.terrain,
     };
 
     result.push(data);
-    console.log(result);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-}
 
-main();
+    console.log(result);
+    return result;
+  } catch (error) {}
+};
+
+getSwapi();
