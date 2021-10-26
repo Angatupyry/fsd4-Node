@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
+const { monedas } = require("./monedas");
+
 app.get("/", (req, res) => {
   res.send("Hola, mundo");
 });
@@ -15,6 +17,8 @@ app.get("/clase", (req, res) => {
   };
   res.send(clase);
 });
+
+app.get("/moneda_dolar", monedas);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en ${PORT}`);
