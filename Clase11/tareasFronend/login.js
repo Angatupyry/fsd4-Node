@@ -7,31 +7,34 @@ button.addEventListener("click", () => {
   const mail = mailElement.value;
   const password = passwordElement.value;
 
-  // Declaración de objetos para convertiro como un string y mandarlo en el fetch
-  const bodyObj = {
-    mail,
-    password,
-  };
-
   if (mail && password) {
+    const objetoBody = {
+      mail: mail,
+      password: password,
+    };
+
     fetch("http://localhost:3000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(bodyObj),
+      body: JSON.stringify(objetoBody),
     })
-      .then((res) => {
-        return res.json;
+      .then(function (response) {
+        return response.json();
       })
-      .then((response) => {
+      .then(function (response) {
+        debugger;
+
         if (!response.error) {
           localStorage.setItem("token", response.token);
 
           alert("Login exitoso");
+        } else {
+          alert("Login fallido");
         }
       });
   } else {
-    alert("Faltan datos");
+    alert("Falta completar campos");
   }
 });

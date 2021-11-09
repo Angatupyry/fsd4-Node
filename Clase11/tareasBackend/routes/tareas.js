@@ -10,6 +10,46 @@ const listaDeTareas = [
     prioridad: "prioridad-baja",
     autor: "Sistema",
   },
+  {
+    titulo: "Prueba 1",
+    prioridad: "prioridad-baja",
+    autor: "Sistema",
+  },
+  {
+    titulo: "Prueba 1",
+    prioridad: "prioridad-baja",
+    autor: "Sistema",
+  },
+  {
+    titulo: "Prueba 1",
+    prioridad: "prioridad-baja",
+    autor: "Sistema",
+  },
+  {
+    titulo: "Prueba 1",
+    prioridad: "prioridad-baja",
+    autor: "Sistema",
+  },
+  {
+    titulo: "Prueba 1",
+    prioridad: "prioridad-baja",
+    autor: "Sistema",
+  },
+  {
+    titulo: "Prueba 1",
+    prioridad: "prioridad-baja",
+    autor: "Sistema",
+  },
+  {
+    titulo: "Prueba 1",
+    prioridad: "prioridad-baja",
+    autor: "Sistema",
+  },
+  {
+    titulo: "Prueba 1",
+    prioridad: "prioridad-baja",
+    autor: "Sistema",
+  },
 ];
 
 router.get("/", (req, res) => {
