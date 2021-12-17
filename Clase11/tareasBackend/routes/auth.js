@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const db = require("../db");
 const { TOKEN_SECRET, verifyToken } = require("../middlewares/jwt-validate");
 
 const { listaDeTareas } = require("./tareas");
@@ -20,9 +21,17 @@ router.post("/registro", async (req, res) => {
       return;
     }
 
-    const existeUser = usuarios.find((u) => {
-      return u.mail === req.body.mail;
+    const usuarioBd = await db.query("Select * from users where mail = $1", [
+      req.body.mail,
+    ]);
+
+    usuarioBd = await usuario.findAll({
+      where: {
+        mail: req.body.mail,
+      },
     });
+    // Fijarme que no exista
+    const existeUser = usuarioBd.rowCount > 0;
 
     if (existeUser) {
       res.status(400).json({ success: false, message: "Mail repetido" });
@@ -30,7 +39,6 @@ router.post("/registro", async (req, res) => {
     }
 
     const salt = await bcrypt.genSalt(10);
-    console.log("Salt", salt);
     const password = await bcrypt.hash(req.body.password, salt);
 
     const newUser = {
@@ -39,7 +47,10 @@ router.post("/registro", async (req, res) => {
       password: password,
     };
 
-    usuarios.push(newUser);
+    await db.query(
+      "Insert into users(name, mail, password) values ($1, $2, $3)",
+      [newUser.name, newUser.mail, newUser.password]
+    );
 
     return res.status(200).json({ success: true, newUser });
   } else {
